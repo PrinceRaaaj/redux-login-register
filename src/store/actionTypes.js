@@ -1,6 +1,5 @@
 const Types = {
-    CREATE_USER :  "CREATE_USER",
-    LOGIN : "LOGIN"
+    CREATE_USER :  "CREATE_USER"
 }
 
 export default Types

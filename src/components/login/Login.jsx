@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react"
+import {Link, Redirect} from "react-router-dom"
 import store from "../../store/store"
 import "./Login.css"
 
-export default function Login({setIsRegistered}){
+export default function Login({isUserLogged, setIsUserLogged}){
     const [registeredUser, setRegisteredUser] = useState()
-    const [isUserLogged, setUserLogged] = useState(false)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
 
@@ -16,7 +16,7 @@ export default function Login({setIsRegistered}){
         event.preventDefault()
         if(registeredUser.email === email){
             if(registeredUser.password === password){
-                setUserLogged(true)
+                setIsUserLogged(true)
             } else {
                 console.log("Wrong Password")
             }
@@ -36,14 +36,19 @@ export default function Login({setIsRegistered}){
     {
         !isUserLogged 
         ?
-        <form>
-            <h1>Login</h1>
-            <input type="text" placeholder="Your Email" name="email" value={email} onChange={e=>setEmail(e.target.value)} required />
-            <input type="password" placeholder="Your password" name="password" value={password} onChange={e=>setPassword(e.target.value)} required />
-            <button onClick={login}>Login</button>
-        </form>
+        <>
+            <form>
+                <h1>Login</h1>
+                <input type="text" placeholder="Your Email" name="email" value={email} onChange={e=>setEmail(e.target.value)} required />
+                <input type="password" placeholder="Your password" name="password" value={password} onChange={e=>setPassword(e.target.value)} required />
+                <button onClick={login}>Login</button>
+            </form>
+            <hr />
+            <span><Link to="/register" style={{textDecoration: "none"}}><button>Register</button></Link></span>
+            <Link to="/" style={{textDecoration: "none"}}><span style={style} >{"<- Back to home"}</span></Link>
+        </>
         :
-        <div><h1>Welcome {registeredUser.name}</h1></div>
+        <Redirect to="/" />
         }
     
 </div>
